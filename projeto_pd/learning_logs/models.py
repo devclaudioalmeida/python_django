@@ -20,4 +20,7 @@ class Entrada(models.Model):
 
     def __str__(self):
         """ Retorna uma string simples representando a entrada """
-        return f'{self.texto[:50]}...'
+        if len(self.texto) > 50:
+            return f'{self.texto[:50]}...'
+        else:
+            return self.texto
