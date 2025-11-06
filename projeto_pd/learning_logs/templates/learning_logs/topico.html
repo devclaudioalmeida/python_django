@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'learning_logs/base.html' %}
+
+    {% block content %}
+
+    <p>Tópico: {{topico.text}}</p>
+
+    <p>Entradas</p>
+    
+    <ul>
+        {% for entrada in entradas %}
+            <li>
+                <p>{{ entrada.data_add|date:'M D, Y H:i' }}</p>
+                <p>{{ entrada.text|linebreaks }}</p>
+            </li>
+        {% empty %}
+            <li>Não existem entradas neste tópico</li>
+        {% endfor %}
+    </ul>
+
+    {% endblock content %}
+</body>
+</html>

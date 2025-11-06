@@ -10,4 +10,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     # Pagina que mostra todos os tópicos
     path('topicos/', views.topicos, name='topicos'),
+    path('topicos/<int:id_topico>/', views.topico, name='topico')
 ]
