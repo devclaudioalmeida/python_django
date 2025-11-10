@@ -18,7 +18,7 @@
         {% for entrada in entradas %}
             <li>
                 <p>{{ entrada.data_add|date:'M D, Y H:i' }}</p>
-                <p>{{ entrada.text|linebreaks }}</p>
+                <p>{{ entrada.texto|linebreaks }}</p>
             </li>
         {% empty %}
             <li>Não existem entradas neste tópico</li>
