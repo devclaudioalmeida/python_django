@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from learning_logs.models import Topico
+from .forms import FormularioTopico, EntradaFormulario
 
 # Create your views here.
 def index(request):
@@ -22,3 +23,39 @@ def topico(request, id_topico):
     contexto = {'topico' : topico, 'entradas' : entradas}
     return render(request, 'learning_logs/topico.html', contexto)
 
+
+def novo_topico(request):
+    """ Adiiona um novo tópico """
+    if request.method != 'POST':
+        # Nenhum dado enviado; cria um formulário em branco
+        form = FormularioTopico()
+    else:
+        # Dados POST enviados: processa os dados
+        form = FormularioTopico(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('learning_logs:topicos')
+    # Exibe um formulário em branco ou inválido
+    context = {'form' : form}
+    return render(request, 'learning_logs/novo_topico.html', context)
+
+
+def nova_entrada(request, id_topico):
+    """ Adicinona uma entrada nova para um tópico específico """
+    topico = Topico.objects.get(id=id_topico)
+
+    if request.method != 'POST':
+        # Nenhum dado enviado; cria um formulário em branco
+        form = EntradaFormulario()
+    else:
+        # Dados POST enviados; processa os dados
+        form = EntradaFormulario(data=request.POST)
+        if form.is_valid():
+            nova_entrada = form.save(commit=False)
+            nova_entrada.topico = topico
+            nova_entrada.save()
+            return redirect('learning_logs:topico', topic_id=id_topico)
+    
+    # Exibe um formulário em branco ou inválido
+    context = {'topico' : topico, 'form' : form}
+    return render(request, 'learning_log/nova_entrada.html', context)

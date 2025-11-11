@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'learnig_logs/base.html' %}
+
+    {% block content%}
+        <p><a href="{% url 'learning_logs:topico' topico.id %}">{{ topico }}</a></p>
+
+        <p>Adicionando uma nova entrada:</p>
+        <form action="{% url 'learning_logs:nova_entrada' topico.id %}" method="post">
+            {% csrf_token %}
+            {{ form.as_div }}
+            <button name="submit">Adicionar Entrada</button>
+        </form>
+
+    {% endblock content %}
+</body>
+</html>

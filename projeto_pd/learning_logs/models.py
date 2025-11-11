@@ -12,7 +12,7 @@ class Topico(models.Model):
 class Entrada(models.Model):
     """ Algo específico aprendido sobre um tópico """
     topico = models.ForeignKey(Topico, on_delete=models.CASCADE)
-    texto = models.TextField()
+    text = models.TextField()
     data_add = models.DateTimeField(auto_now_add=True)
 
     class Meta:

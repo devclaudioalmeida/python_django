@@ -13,15 +13,19 @@
     <p>Tópico: {{topico.text}}</p>
 
     <p>Entradas</p>
+    <p>
+        <a href="{% url 'learning_logs:nova_entrada' topico.id %}">Adicionar Nova Entrada</a>
+    </p>
     
     <ul>
         {% for entrada in entradas %}
             <li>
                 <p>{{ entrada.data_add|date:'M D, Y H:i' }}</p>
-                <p>{{ entrada.texto|linebreaks }}</p>
+                <p>{{ entrada.text|linebreaks }}</p>
             </li>
         {% empty %}
             <li>Não existem entradas neste tópico</li>
+        
         {% endfor %}
     </ul>
 
