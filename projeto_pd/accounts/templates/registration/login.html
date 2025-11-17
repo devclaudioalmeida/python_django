@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'learning_logs/base.html' %}
+    
+    {% block content %}
+
+        {% if form.erros %}
+            <p>Seu usuário e senha não correspondem a nenhuma informação armazenada no banco de dadeos. Por favor, tente novamente.</p>
+        {% endif %}
+
+    <form action="{% url 'accounts:login' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <button name="submit">Login</button>
+    </form>
+    {% endblock content %}
+</body>
+</html>
