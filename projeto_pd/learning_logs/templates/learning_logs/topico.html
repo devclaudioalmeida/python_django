@@ -12,7 +12,7 @@
 
     <p>Tópico: {{topico.text}}</p>
 
-    <p>Entradas</p>
+    <p>Entradas:</p>
     <p>
         <a href="{% url 'learning_logs:nova_entrada' topico.id %}">Adicionar Nova Entrada</a>
     </p>
@@ -22,6 +22,7 @@
             <li>
                 <p>{{ entrada.data_add|date:'M D, Y H:i' }}</p>
                 <p>{{ entrada.text|linebreaks }}</p>
+                <p><a href="{% url 'learning_logs:editar_entrada' entrada.id %}">Editar Entrada</a></p>
             </li>
         {% empty %}
             <li>Não existem entradas neste tópico</li>
