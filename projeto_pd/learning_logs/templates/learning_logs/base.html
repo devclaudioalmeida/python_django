@@ -4,26 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 </head>
 <body>
-    <h1>
-        <a href="{% url 'learning_logs:index' %}">Learning Log </a>-
-        <a href="{% url 'learning_logs:topicos' %}"> Tópicos</a>
-        {% if user.is_authenticated %}
-            Olá, {{ user.username }}
-        {% else %}
-            <a href="{% url 'accounts:register' %}">Registrar</a>
-            <a href="{% url 'accounts:login' %}">Login</a>
-        {% endif %}
-    </h1>
-    {% block content %}{% endblock content %}
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning Log </a>
 
-    {% if user.is_authenticated %}
-        <hr />
-        <form action="{% url 'accounts:logout' %}" method="post">
-            {% csrf_token %}
-            <button name="submit">Logout</button>
-        </form>
-    {% endif %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'learning_logs:topicos' %}"> Tópicos</a>
+                    </li>
+                </ul><!-- Fim dos links no lado esquerdo da barra de navegação -->
+
+                <!-- Links relacionados à conta -->
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <span class="navbar-text me-2">Olá, {{ user.username }}</span>
+                        </li>
+                        
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'accounts:register' %}">Registrar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul><!-- Fim dos links relacionados à conta -->
+
+                {% if user.is_authenticated %}
+                    <form action="{% url 'accounts:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button name="submit" class="btn btn-outline-secondary btn-sm">Logout</button>
+                    </form>
+                {% endif %}
+
+            </div><!-- Fecha as partes recolhiveis da barra de navegação -->
+        </div><!-- Fecha o container da barra de navegação -->
+    </nav><!-- Fim da barra de navegação -->
+
+    <main class="container">
+        <div class="pb-2 mb-2 border-bottom">
+            {% block page_header %}{% endblock page_header %}
+        </div>
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+    </main>
 </body>
 </html>
