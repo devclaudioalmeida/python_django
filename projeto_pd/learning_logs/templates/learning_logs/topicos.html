@@ -1,27 +1,21 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% extends 'learning_logs/base.html' %}
+{% extends 'learning_logs/base.html' %}
 
-    {% block content %}
-    <p>Topicos</p>
-    <ul>
+{% block page_header %}
+    <h1>Tópicos</h1>
+{% endblock page_header %}
+
+{% block content %}
+    
+    <ul class="list-group border-botton pb-2 mb-4">
         {% for topico in topicos %}
-            <li>
+            <li class="list-group-item border-0">
                 <a href="{% url 'learning_logs:topico' topico.id %}">{{topico.text}}</a>
             </li>
         {% empty %}
-            <li>Não existem topicos adicionados!</li>
+            <li class="list-group-item border-0">Não existem topicos adicionados!</li>
         {% endfor %}
     </ul>
 
     <a href="{% url 'learning_logs:novo_topico' %}">Adicionar um novo tópico</a>
 
-    {% endblock content %}
-</body>
-</html>
+{% endblock content %}

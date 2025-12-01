@@ -1,35 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% extends 'learning_logs/base.html' %}
 
-    {% block content %}
+{% extends 'learning_logs/base.html' %}
 
-    <p>Tópico: {{topico.text}}</p>
+{% block page_header %}
+    <h1>Tópico: {{topico.text}}</h1>
+{% endblock page_header %}
 
-    <p>Entradas:</p>
+{% block content %}
+
     <p>
         <a href="{% url 'learning_logs:nova_entrada' topico.id %}">Adicionar Nova Entrada</a>
     </p>
     
-    <ul>
-        {% for entrada in entradas %}
-            <li>
-                <p>{{ entrada.data_add|date:'M D, Y H:i' }}</p>
-                <p>{{ entrada.text|linebreaks }}</p>
-                <p><a href="{% url 'learning_logs:editar_entrada' entrada.id %}">Editar Entrada</a></p>
-            </li>
-        {% empty %}
-            <li>Não existem entradas neste tópico</li>
-        
-        {% endfor %}
-    </ul>
+    {% for entrada in entradas %}
+        <div class="card mb-3">
+            <!-- Cabeçalho do card com timestamp e link de edição -->
+            <h4 class="card-header">
+                {{ entrada.data_add|date:'M D, Y H:i' }}
+                <small><a href="{% url 'learning_logs:editar_entrada' entrada.id %}">Editar Entrada</a></small>
+            </h4>
+            <!-- Corpo do card com texto de entrada -->
+            <div class="card-body">
+                {{ entrada.text|linebreaks }}
+            </div>
 
-    {% endblock content %}
-</body>
-</html>
+        </div>
+    {% empty %}
+        <p>Não existem entradas neste tópico</p>
+        
+    {% endfor %}
+
+
+{% endblock content %}
