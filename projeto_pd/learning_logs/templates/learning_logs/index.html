@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% extends 'learning_logs/base.html' %}
 
-    {% block content %}
-    <p>Learning Log ajuda voce a manter o caminho do seu aprendizado
-        para algum tópico que voce esteja interessado
-    </p>
-    {% endblock content %}
-</body>
-</html>
+{% extends 'learning_logs/base.html' %}
+
+{% block page_header %}
+    <div class="p-3 mb-4 bg-light border rounded-3">
+        <div class="container-fluid py-4">
+            <h1 class="display-3">Acompanhe Seu Aprendizado</h1>
+            <p class="lead">Faça seus proprios registros de aprendizagem, 
+                e mantenha uma lista dos tópicos que você está aprendendo.
+                Enquanto voce aprende sobre um tópico, faça as entradas
+                que voce aprendeu.
+            </p>
+            
+            <a class="btn btn-primary btn-lg mt-1"
+                href="{% url 'accounts:register' %}">Registrar &raquo;</a>
+        </div>
+    </div>
+{% endblock page_header %}
